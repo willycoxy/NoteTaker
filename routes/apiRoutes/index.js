@@ -13,10 +13,9 @@ router.get("/notes", (req, res) => {
     
   });
 
-  // Client fetches from /notes/:id route
   router.get("/notes/:id", (req, res) => {
-    let notesInFile = JSON.parse(fs.readFileSync("../../db/db.json", "utf8"))
-    res.json(notesInFile[Number(req.params.id)]);
+    let notesById = JSON.parse(fs.readFileSync("../../db/db.json", "utf8"))
+    res.json(notesById[Number(req.params.id)]);
     
   });
 
@@ -31,16 +30,12 @@ router.get("/notes", (req, res) => {
 // })
 
 router.post("/notes", (req, res) => {
-    // set id based on what the next index of the array will be
-    let notesInFile = JSON.parse(fs.readFileSync(
-        // path.join(__dirname, "../../db/db.json"), "utf8"));
+    let notespost = JSON.parse(fs.readFileSync(
         path.join(__dirname, "../../db/db.json"), "utf8"));
-    req.body.id = notesInFile.length.toString();
-    
-    // Writes/adds to db.json
-    notesInFile.push(req.body);
-    fs.writeFileSync("db/db.json", JSON.stringify(notesInFile));
-      res.json(notesInFile);
+    req.body.id = notespost.length.toString();
+    notespost.push(req.body);
+    fs.writeFileSync("db/db.json", JSON.stringify(notespost));
+      res.json(notespost);
   });
 // router.post('/notes',(req, res) =>{
 
@@ -48,9 +43,9 @@ router.post("/notes", (req, res) => {
 //     path.join(__dirname, "../../db/db.json"), "utf8"));
 //   req.body.id = notespost.length.toSring();
 
-//   notesInFile.push(req.body);
-//   fs.writeFileSync("db/db.json", JSON.stringify(notesInFile));
-//     res.json(notesInFile);
+//   notespost.push(req.body);
+//   fs.writeFileSync("db/db.json", JSON.stringify(notespost));
+//     res.json(notespost);
 // })
 
 // router.delete('notes/id', (req,res) =>{
