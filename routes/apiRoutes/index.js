@@ -18,7 +18,10 @@ router.get('/notes/:id', (req,res) => {
 })
 
 router.post('/notes',(req, res) =>{
-  req.body.id = notes.length.toSring();
+
+    let notespost = JSON.parse(fs.readFileSync(
+    path.join(__dirname, "../../db/db.json"), "utf8"));
+  req.body.id = notespost.length.toSring();
 })
 
 // router.delete('notes/id', (req,res) =>{
